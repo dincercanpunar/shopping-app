@@ -1,11 +1,15 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { colors, dimensions } from '~/constants'
+import { connect } from 'react-redux';
 
 const { sw, sh } = dimensions;
 
-function Header() {
+function Header({ cart }) {
+    const navigation = useNavigation();
+
     return (
         <View style={[styles.container]}>
             {/* <TouchableOpacity 
@@ -23,7 +27,7 @@ function Header() {
                 <Text style={[styles.text, { color: "black" }]}>çağır gelsin</Text>
             </View>
             <TouchableOpacity 
-                onPress={() => console.log("asd")}
+                onPress={() => navigation.push('Cart')}
                 style={styles.button}
             >
                 <Icon 
@@ -32,7 +36,9 @@ function Header() {
                     color={colors.main} 
                 />
                 <View style={styles.badge}>
-                    <Text style={styles.badgeText}>2</Text>
+                    <Text style={styles.badgeText}>
+                        {cart.length}
+                    </Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -78,4 +84,11 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Header;
+const mapStateToProps = state => {
+    return {
+        price: state.price,
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(Header);
