@@ -9,7 +9,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case 'ADD_TO_CART':
             
-            const index = _.findIndex(state.cart, function(o) { return o.id == action.payload.id });
+            var index = _.findIndex(state.cart, function(o) { return o.id == action.payload.id });
             var nCart = []
             var price = 0
 
@@ -23,6 +23,24 @@ export const reducer = (state = INITIAL_STATE, action) => {
 
                 price = calculatePrice(nCart)
             }
+
+            return {
+                ...state,
+                price: price,
+                cart: nCart
+            }
+
+        case 'DELETE_FROM_CART':
+        
+            var indexx = _.findIndex(state.cart, function(o) { return o.id == action.payload });
+            var nCart = state.cart
+
+            nCart.splice(indexx, 1);
+
+            var price = calculatePrice(nCart)
+
+
+            console.log("NCART", nCart)
 
             return {
                 ...state,

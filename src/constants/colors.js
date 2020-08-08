@@ -12,6 +12,9 @@ const primary_light = "#e1f0ff";
 const success = "#0bb7af";
 const success_dark = "#0E6655";
 const success_light = "#c9f7f5";
+const danger = "#f64e60";
+const danger_dark = "#A93226";
+const danger_light = "#ffe2e5";
 
 export default {
     main,
@@ -23,5 +26,6 @@ export default {
 
     primary,
     primary_light,
-    success
+    success,
+    danger
 };

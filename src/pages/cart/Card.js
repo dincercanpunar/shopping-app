@@ -3,16 +3,17 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { connect } from 'react-redux';
 import { colors, dimensions } from '~/constants'
-import { addToCart } from '~/actions';
+import { deleteFromCart } from '~/actions';
 import * as _ from 'lodash';
 
 const { sw, sh } = dimensions;
 
-function Card({ id, title, price, cart, addToCart }) {
-    const index = _.findIndex(cart, function(o) { return o.id == id });
-    console.log("Card NCART", cart)
+function Card({ id, title, price, deleteFromCart }) {
     return (
         <View style={styles.container}>
+            <View>
+
+            </View>
             <Image
                 style={styles.image}
                 source={{
@@ -27,44 +28,21 @@ function Card({ id, title, price, cart, addToCart }) {
                 </View>
             </View>
             <View style={styles.rightContainer}>
-                {
-                    index > -1 ?
-                        <View
-                            style={[
-                                styles.button,
-                                {
-                                    backgroundColor: colors.success
-                                }
-                            ]} 
-                        >
-                            <Icon 
-                                name="check"
-                                size={sh(3)} 
-                                color={colors.white} 
-                            />
-                        </View>
-                    :
-                        <TouchableOpacity 
-                            style={[
-                                styles.button,
-                                {
-                                    backgroundColor: colors.main
-                                }
-                            ]} 
-                            onPress={() => addToCart({
-                                id,
-                                title,
-                                price,
-                                quantity: 1
-                            })}
-                        >
-                            <Icon 
-                                name="plus"
-                                size={sh(3)} 
-                                color={colors.white} 
-                            />
-                        </TouchableOpacity>
-                }
+                <TouchableOpacity 
+                    style={[
+                        styles.button,
+                        {
+                            backgroundColor: colors.danger
+                        }
+                    ]} 
+                    onPress={() => deleteFromCart(id)}
+                >
+                    <Icon 
+                        name="times"
+                        size={sh(3)} 
+                        color={colors.white} 
+                    />
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -124,4 +102,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { addToCart })(Card);
+export default connect(mapStateToProps, { deleteFromCart })(Card);

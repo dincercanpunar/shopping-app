@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useQuery } from '@apollo/client';
 import { PRODUCTS } from '~/queries/products'
-import { Card } from '~/common'
 import { colors, dimensions } from '~/constants'
 import Header from './cart/Header';
+import Card from './cart/Card'
 
 const { sw, sh } = dimensions;
 
@@ -24,11 +24,18 @@ function Cart({ price, cart }) {
             {
                 <Text>{price}</Text>
             }
+            <View style={styles.subContainer}>
             {
-                cart.map((item, index) => (
-                    <Text key={item.id}>{item.title} {item.price} quantity {item.quantity}</Text>
+                cart.map(({ id, title, price }, index) => (
+                    <Card
+                        key={id}
+                        id={id}
+                        title={title}
+                        price={price}
+                    />
                 ))
             }
+            </View>
         </View>
     )
 }
